@@ -32,6 +32,146 @@ page = st.sidebar.selectbox(
     help="使用したい機能を選択してください"
 )
 
+# テキストサイズ調整機能
+st.sidebar.header("表示設定")
+text_size = st.sidebar.slider(
+    "テキストサイズ",
+    min_value=12,
+    max_value=36,
+    value=16,
+    step=1,
+    help="アプリ全体のテキストサイズを調整できます"
+)
+
+# 動的CSSスタイリング
+st.html(f"""
+<style>
+/* 通常のテキスト要素のみサイズ調整（ヘッダー類は除外） */
+
+/* ボタンのテキストサイズ */
+.stButton > button {{
+    font-size: {text_size}px !important;
+}}
+
+/* セレクトボックスのテキストサイズ */
+.stSelectbox > div > div {{
+    font-size: {text_size}px !important;
+}}
+
+/* テキストエリアのサイズ */
+.stTextArea > div > div > textarea {{
+    font-size: {text_size}px !important;
+}}
+
+/* チャットメッセージのテキストサイズ */
+[data-testid="chatMessage"] {{
+    font-size: {text_size}px !important;
+}}
+
+/* チャット入力のテキストサイズ */
+.stChatInput > div > div > div > div > div > textarea {{
+    font-size: {text_size}px !important;
+}}
+
+/* データフレームのテキストサイズ */
+.stDataFrame {{
+    font-size: {text_size}px !important;
+}}
+
+/* 通常のテキスト要素（ヘッダーを除く） */
+p {{
+    font-size: {text_size}px !important;
+}}
+
+/* ラベルテキスト */
+label {{
+    font-size: {text_size}px !important;
+}}
+
+/* 一般的なdivとspan（ただしヘッダー内のものは除外） */
+div:not(.stTitle):not(.stHeader):not(.stSubheader) > span {{
+    font-size: {text_size}px !important;
+}}
+
+/* 情報メッセージのテキストサイズ */
+.stInfo, .stSuccess, .stWarning, .stError {{
+    font-size: {text_size}px !important;
+}}
+
+/* ファイルアップローダーのテキスト */
+.stFileUploader > div > div > div > div {{
+    font-size: {text_size}px !important;
+}}
+
+/* スピナーのテキスト */
+.stSpinner > div {{
+    font-size: {text_size}px !important;
+}}
+
+/* 通常のテキスト表示 */
+.stText {{
+    font-size: {text_size}px !important;
+}}
+
+/* マークダウンの通常テキスト（ヘッダーは除外） */
+.stMarkdown p {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーの要素 */
+.css-1d391kg p, .css-1d391kg span:not(.css-10trblm) {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーのボタン */
+.css-1d391kg .stButton > button {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーのセレクトボックス */
+.css-1d391kg .stSelectbox > div > div {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーのスライダーラベル */
+.css-1d391kg .stSlider > label {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーのヘルプテキスト */
+.css-1d391kg .stSlider > div > div > div > div {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーの一般的なテキスト要素 */
+.css-1d391kg div:not([data-testid="stSidebarNav"]) {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーのマークダウンテキスト */
+.css-1d391kg .stMarkdown p {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーの情報メッセージ */
+.css-1d391kg .stInfo, .css-1d391kg .stSuccess, .css-1d391kg .stWarning, .css-1d391kg .stError {{
+    font-size: {text_size}px !important;
+}}
+
+/* より具体的なサイドバーセレクター */
+[data-testid="stSidebar"] p, 
+[data-testid="stSidebar"] span, 
+[data-testid="stSidebar"] div:not([data-testid="stSidebarNav"]):not(.stSlider):not(.stSelectbox):not(.stButton) {{
+    font-size: {text_size}px !important;
+}}
+
+/* サイドバーのラベル要素 */
+[data-testid="stSidebar"] label {{
+    font-size: {text_size}px !important;
+}}
+</style>
+""")
+
 # ページ分岐
 if page == "🔍 画像解析":
     # 画像解析ページ

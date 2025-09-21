@@ -4,18 +4,20 @@
 
 ## セットアップ
 
-1. 必要なパッケージをインストール:
+1. 仮想環境のセットアップ
 
 ```bash
-pip install -r requirements.txt
+uv venv .venv
+source .venv/bin/activate
 ```
 
-2. 環境変数を設定:
+2. 必要なパッケージをインストール:
 
 ```bash
-# env_templateファイルを.envにコピーして設定
-cp env_template .env
+uv pip install -r requirements.txt
 ```
+
+3. 環境変数を設定:
 
 `.env`ファイルを編集して、実際の値を設定してください:
 
@@ -23,7 +25,7 @@ cp env_template .env
 DATABRICKS_HOST=https://your-workspace.cloud.databricks.com
 DATABRICKS_TOKEN=your_access_token
 SERVING_ENDPOINT_NAME=your_endpoint_name
-BASE_URL=DATABRICKS_HOST/serving-endpoints
+BASE_URL=<DATABRICKS_HOST>/serving-endpoints
 ```
 
 **注意**: Databricks認証情報が設定されていない場合、アプリはデモモードで動作し、サンプルの推論結果を表示します。
@@ -33,14 +35,6 @@ BASE_URL=DATABRICKS_HOST/serving-endpoints
 ```bash
 streamlit run app.py
 ```
-
-## 使用方法
-
-1. ブラウザでアプリが開きます
-2. 「画像を選択してください」から画像ファイル（JPG, JPEG, PNG）をアップロード
-3. アップロードされた画像が表示されます
-4. 「推論を実行」ボタンをクリック
-5. 推論結果が表示されます
 
 ## ファイル構成
 

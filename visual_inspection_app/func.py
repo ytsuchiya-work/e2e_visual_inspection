@@ -4,6 +4,7 @@ import os
 import timeit
 import base64
 import mlflow
+from mlflow import deployments
 from dotenv import load_dotenv
 from openai import OpenAI
 

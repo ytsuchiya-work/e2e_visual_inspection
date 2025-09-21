@@ -296,13 +296,7 @@ lines = ["Line1", "Line2", "Line3", "Line4", "Line5"]
 
 # ランダムなインデックスを生成
 df_new = df.withColumn("rand_idx", (rand() * 5).cast("int"))
-df_new = df_new.withColumn("facility", when(df_new["rand_idx"] == 0, lit(facilities[0]))
-        .when(df_new["rand_idx"] == 1, lit(facilities[1]))
-        .when(df_new["rand_idx"] == 2, lit(facilities[2]))
-        .when(df_new["rand_idx"] == 3, lit(facilities[3]))
-        .otherwise(lit(facilities[4]))
-    ) \
-    .withColumn("productionLine", 
+df_new = df_new.withColumn("productionLine", 
         when(df_new["rand_idx"] == 0, lit(lines[0]))
         .when(df_new["rand_idx"] == 1, lit(lines[1]))
         .when(df_new["rand_idx"] == 2, lit(lines[2]))
@@ -317,53 +311,48 @@ df_new.write.format("delta").mode("overwrite").option("overwriteSchema", "true")
 # COMMAND ----------
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 SET TBLPROPERTIES (
-  'comment' = 'PCBトレーニングデータセット。facilityとproductionLine列を追加。'
+  'comment' = 'PCBトレーニングデータセット。productionLine列を追加。'
 )
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN filename COMMENT '画像ファイル名'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN path COMMENT 'ファイルパス'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN modificationTime COMMENT 'ファイルの最終更新日時'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN length COMMENT 'ファイルサイズ（バイト）'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN content COMMENT '画像バイナリデータ'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN labelDetail COMMENT '詳細なラベル情報'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN label COMMENT '分類ラベル'
 """)
 
 spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
-ALTER COLUMN facility COMMENT '製造施設名（A〜E）'
-""")
-
-spark.sql("""
-ALTER TABLE ytsuchiya_dbdemos.dbdemos_computer_vision_pcb.training_dataset_append_new_columns
+ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN productionLine COMMENT '生産ライン名（Line1〜Line5）'
 """)
