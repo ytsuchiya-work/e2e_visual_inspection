@@ -25,6 +25,7 @@ uv pip install -r requirements.txt
 DATABRICKS_HOST=https://your-workspace.cloud.databricks.com
 DATABRICKS_TOKEN=your_access_token
 SERVING_ENDPOINT_NAME=your_endpoint_name
+AGENT_ENDPOINT=your_agent_endpoint
 BASE_URL=<DATABRICKS_HOST>/serving-endpoints
 ```
 
@@ -33,7 +34,7 @@ BASE_URL=<DATABRICKS_HOST>/serving-endpoints
 ## アプリの実行
 
 ```bash
-streamlit run app.py
+sh run_app.sh
 ```
 
 ## ファイル構成

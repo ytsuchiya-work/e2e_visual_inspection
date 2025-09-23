@@ -12,6 +12,7 @@ from openai import OpenAI
 load_dotenv()
 
 serving_endpoint_name = os.getenv("SERVING_ENDPOINT_NAME")
+agent_endpoint = os.getenv("AGENT_ENDPOINT")
 base_url = os.getenv("BASE_URL")
 IMAGE_RESIZE = 256
 
@@ -109,7 +110,7 @@ def investigate_anomaly_with_agent(user_question=None):
 
         # エージェントに問い合わせ
         response = client.responses.create(
-            model="mas-631ab12a-endpoint",
+            model=agent_endpoint,
             input=[
                 {
                     "role": "user",
