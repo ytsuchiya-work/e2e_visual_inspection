@@ -310,49 +310,49 @@ df_new.write.format("delta").mode("overwrite").option("overwriteSchema", "true")
 
 # COMMAND ----------
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 SET TBLPROPERTIES (
   'comment' = 'PCBトレーニングデータセット。productionLine列を追加。'
 )
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN filename COMMENT '画像ファイル名'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN path COMMENT 'ファイルパス'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN modificationTime COMMENT 'ファイルの最終更新日時'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN length COMMENT 'ファイルサイズ（バイト）'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN content COMMENT '画像バイナリデータ'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN labelDetail COMMENT '詳細なラベル情報'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN label COMMENT '分類ラベル'
 """)
 
-spark.sql("""
+spark.sql(f"""
 ALTER TABLE {catalog}.{db}.training_dataset_append_new_columns
 ALTER COLUMN productionLine COMMENT '生産ライン名（Line1〜Line5）'
 """)
