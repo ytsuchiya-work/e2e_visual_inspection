@@ -239,6 +239,13 @@ model_registered = mlflow.register_model(
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.serving import ServedEntityInput, EndpointCoreConfigInput, AutoCaptureConfigInput
 
+# キャプチャ用テーブル名のprefixをユニークにする（例: タイムスタンプやUUIDを付与）
+# 以下エラーの回避
+# BadRequest: Table in Unity Catalog ytsuchiya_demo.dbdemos_computer_vision_pcb.tsuchiya_dbdemos_pcb_classification_endpoint_payload already exists. Please specify a different table prefix.
+
+import uuid
+unique_prefix = f"{serving_endpoint_name}_payload_{uuid.uuid4().hex[:8]}"
+
 # モデルサービングエンドポイントの設定を指定
 endpoint_config = EndpointCoreConfigInput(
     name=serving_endpoint_name,
@@ -254,7 +261,9 @@ endpoint_config = EndpointCoreConfigInput(
     auto_capture_config = AutoCaptureConfigInput(
       catalog_name=catalog, 
       schema_name=db, 
-      enabled=True)
+      enabled=True,
+      table_name_prefix=unique_prefix
+    )
 )
 
 # 新しいバージョンをリリースする場合はTrueに設定（デモではデフォルトでエンドポイントを新しいモデルバージョンに更新しません）
